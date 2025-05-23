@@ -7,43 +7,57 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+  gap: 10px;
 }
 
 .player-score {
   flex: 1;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 4px;
   text-align: center;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s;
-  margin: 0 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin: 0;
   opacity: 0.8;
+  border: 1px solid #e0e0e0;
 }
 
 .player-score.active {
   opacity: 1;
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  border: 2px solid #4CAF50;
+  border: 1px solid #4CAF50;
+  background-color: #f1f8e9;
+}
+
+.player-score.winner {
+  opacity: 1;
+  border: 1px solid #FF9800;
+  background-color: #fff8e1;
+  animation: pulse 1.5s infinite;
 }
 
 .player-label {
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 5px;
   color: #333;
+  font-size: 1rem;
 }
 
 .category-label {
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 5px;
+  text-transform: capitalize;
 }
 
 .score {
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 700;
   color: #2196F3;
+}
+
+.winner .score {
+  color: #FF9800;
 }
 
 .current-turn {
@@ -52,14 +66,23 @@
   align-items: center;
   padding: 10px;
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
 }
 
 .turn-label {
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 5px;
   color: #333;
+  font-size: 1rem;
+}
+
+.winner-label {
+  color: #FF9800;
+  font-size: 1.3rem;
+  font-weight: 600;
+  animation: bounce 1s infinite alternate;
 }
 
 .current-emoji {
@@ -81,7 +104,7 @@
   .score {
     font-size: 1.2rem;
   }
-  
+
   .current-emoji {
     font-size: 1.8rem;
   }

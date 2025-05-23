@@ -1,10 +1,10 @@
 import React from 'react';
 import '../styles/Cell.css';
 
-const Cell = ({ value, onClick, isWinningCell, player }) => {
+const Cell = ({ value, onClick, isWinningCell, player, disabled }) => {
   return (
-    <div 
-      className={`cell ${isWinningCell ? 'winning' : ''} ${player ? `player-${player}` : ''}`}
+    <div
+      className={`cell ${isWinningCell ? 'winning' : ''} ${player ? `player-${player}` : ''} ${disabled ? 'disabled' : ''}`}
       onClick={onClick}
     >
       {value && (

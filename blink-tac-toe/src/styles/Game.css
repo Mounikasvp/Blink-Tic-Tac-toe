@@ -4,14 +4,18 @@
   align-items: center;
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 25px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 h1 {
   color: #333;
   margin-bottom: 20px;
-  font-size: 2.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 2.2rem;
+  font-weight: 700;
 }
 
 .category-selection {
@@ -31,26 +35,45 @@ h1 {
 }
 
 .start-button {
-  padding: 12px 24px;
-  font-size: 1.2rem;
+  padding: 10px 20px;
+  font-size: 1rem;
   background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s;
   margin-top: 20px;
 }
 
 .start-button:hover {
   background-color: #45a049;
-  transform: scale(1.05);
+}
+
+.start-button:active {
+  background-color: #3d8b40;
 }
 
 .start-button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
-  transform: none;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-weight: bold;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #ffebee;
+  border-radius: 4px;
+  text-align: center;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
 .game-play {
@@ -64,15 +87,18 @@ h1 {
   margin-top: 20px;
   text-align: center;
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  animation: pop-in 0.5s ease-out;
+  background-color: #fff8e1;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: pop-in 0.4s ease-out;
+  border: 1px solid #ffecb3;
 }
 
 .winner-message h2 {
   color: #ff9800;
   margin-bottom: 15px;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .play-again-button {
@@ -81,7 +107,7 @@ h1 {
   background-color: #2196F3;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -90,15 +116,20 @@ h1 {
   background-color: #0b7dda;
 }
 
+.play-again-button:active {
+  background-color: #0a69b7;
+}
+
 .help-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 10px 20px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
   background-color: #673AB7;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
   z-index: 100;
@@ -106,6 +137,24 @@ h1 {
 
 .help-button:hover {
   background-color: #5e35b1;
+}
+
+.help-button:active {
+  background-color: #512da8;
+}
+
+@keyframes winner-pop-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes pop-in {
@@ -124,16 +173,16 @@ h1 {
   .game-container {
     padding: 10px;
   }
-  
+
   h1 {
     font-size: 2rem;
   }
-  
+
   .categories-container {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .start-button {
     padding: 10px 20px;
     font-size: 1rem;

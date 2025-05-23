@@ -39,7 +39,7 @@ const Game = () => {
 
   // Start game with selected categories
   const startGame = () => {
-    if (player1Category && player2Category) {
+    if (player1Category && player2Category && player1Category !== player2Category) {
       setGameStarted(true);
       resetGame();
       setCurrentEmoji(getRandomEmoji(player1Category));
@@ -65,52 +65,55 @@ const Game = () => {
 
     const newBoard = [...board];
     const currentCategory = currentPlayer === 1 ? player1Category : player2Category;
-    
+
     // Add emoji to board
     newBoard[index] = currentEmoji;
     setBoard(newBoard);
 
     // Track player's emojis and positions
+    let newPositions = [];
     if (currentPlayer === 1) {
       const newEmojis = [...player1Emojis, currentEmoji];
-      const newPositions = [...player1Positions, index];
-      
+      newPositions = [...player1Positions, index];
+
       // Apply FIFO if more than 3 emojis
       if (newEmojis.length > 3) {
         const oldestPosition = newPositions.shift();
         newEmojis.shift();
         newBoard[oldestPosition] = null;
       }
-      
+
       setPlayer1Emojis(newEmojis);
       setPlayer1Positions(newPositions);
     } else {
       const newEmojis = [...player2Emojis, currentEmoji];
-      const newPositions = [...player2Positions, index];
-      
+      newPositions = [...player2Positions, index];
+
       // Apply FIFO if more than 3 emojis
       if (newEmojis.length > 3) {
         const oldestPosition = newPositions.shift();
         newEmojis.shift();
         newBoard[oldestPosition] = null;
       }
-      
+
       setPlayer2Emojis(newEmojis);
       setPlayer2Positions(newPositions);
     }
 
-    // Switch player and get new random emoji
-    const nextPlayer = currentPlayer === 1 ? 2 : 1;
-    const nextCategory = nextPlayer === 1 ? player1Category : player2Category;
-    setCurrentPlayer(nextPlayer);
-    setCurrentEmoji(getRandomEmoji(nextCategory));
-    
-    // Check for winner
-    checkWinner(newBoard);
+    // Check for winner with updated positions
+    const hasWinner = checkWinnerAndUpdate(newBoard, currentPlayer, newPositions);
+
+    // Only switch player if there's no winner
+    if (!hasWinner) {
+      const nextPlayer = currentPlayer === 1 ? 2 : 1;
+      const nextCategory = nextPlayer === 1 ? player1Category : player2Category;
+      setCurrentPlayer(nextPlayer);
+      setCurrentEmoji(getRandomEmoji(nextCategory));
+    }
   };
 
-  // Check for winner
-  const checkWinner = (board) => {
+  // Check for winner and update game state
+  const checkWinnerAndUpdate = (board, playerNumber, currentPlayerPositions) => {
     const winPatterns = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
       [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
@@ -120,23 +123,34 @@ const Game = () => {
     for (const pattern of winPatterns) {
       const [a, b, c] = pattern;
       if (board[a] && board[b] && board[c]) {
-        // Check if all three positions belong to the same player
-        const player1HasAll = player1Positions.includes(a) && player1Positions.includes(b) && player1Positions.includes(c);
-        const player2HasAll = player2Positions.includes(a) && player2Positions.includes(b) && player2Positions.includes(c);
+        // Check if all three positions belong to the current player
+        const hasAllPositions =
+          currentPlayerPositions.includes(a) &&
+          currentPlayerPositions.includes(b) &&
+          currentPlayerPositions.includes(c);
 
-        if (player1HasAll) {
-          setWinner(1);
+        if (hasAllPositions) {
+          setWinner(playerNumber);
           setWinningLine(pattern);
-          setPlayer1Score(player1Score + 1);
-          return;
-        } else if (player2HasAll) {
-          setWinner(2);
-          setWinningLine(pattern);
-          setPlayer2Score(player2Score + 1);
-          return;
+
+          if (playerNumber === 1) {
+            setPlayer1Score(player1Score + 1);
+          } else {
+            setPlayer2Score(player2Score + 1);
+          }
+
+          return true; // Return true to indicate we have a winner
         }
       }
     }
+
+    return false; // No winner found
+  };
+
+  // Legacy check winner function (kept for compatibility)
+  const checkWinner = (board) => {
+    const currentPositions = currentPlayer === 1 ? player1Positions : player2Positions;
+    checkWinnerAndUpdate(board, currentPlayer, currentPositions);
   };
 
   // Play again after a win
@@ -152,53 +166,60 @@ const Game = () => {
   return (
     <div className="game-container">
       <h1>Blink Tac Toe</h1>
-      
+
       {!gameStarted ? (
         <div className="category-selection">
           <h2>Select Emoji Categories</h2>
           <div className="categories-container">
-            <CategorySelector 
-              player={1} 
-              categories={Object.keys(emojiCategories)} 
+            <CategorySelector
+              player={1}
+              categories={Object.keys(emojiCategories)}
               selectedCategory={player1Category}
               onSelectCategory={setPlayer1Category}
               emojiSamples={emojiCategories}
+              disabledCategory={player2Category}
             />
-            <CategorySelector 
-              player={2} 
-              categories={Object.keys(emojiCategories)} 
+            <CategorySelector
+              player={2}
+              categories={Object.keys(emojiCategories)}
               selectedCategory={player2Category}
               onSelectCategory={setPlayer2Category}
               emojiSamples={emojiCategories}
+              disabledCategory={player1Category}
             />
           </div>
-          <button 
-            className="start-button" 
+          <button
+            className="start-button"
             onClick={startGame}
-            disabled={!player1Category || !player2Category}
+            disabled={!player1Category || !player2Category || player1Category === player2Category}
           >
             Start Game
           </button>
+          {player1Category && player2Category && player1Category === player2Category && (
+            <div className="error-message">Both players cannot select the same emoji category!</div>
+          )}
         </div>
       ) : (
         <div className="game-play">
-          <GameInfo 
-            currentPlayer={currentPlayer} 
+          <GameInfo
+            currentPlayer={currentPlayer}
             currentEmoji={currentEmoji}
             player1Score={player1Score}
             player2Score={player2Score}
             player1Category={player1Category}
             player2Category={player2Category}
+            winner={winner}
           />
-          
-          <Board 
-            board={board} 
-            onCellClick={handleCellClick} 
+
+          <Board
+            board={board}
+            onCellClick={handleCellClick}
             winningLine={winningLine}
             player1Positions={player1Positions}
             player2Positions={player2Positions}
+            gameOver={winner !== null}
           />
-          
+
           {winner && (
             <div className="winner-message">
               <h2>Player {winner} Wins! 🎉</h2>
@@ -209,11 +230,11 @@ const Game = () => {
           )}
         </div>
       )}
-      
+
       <button className="help-button" onClick={toggleHelp}>
         {showHelp ? 'Close Help' : 'Help'}
       </button>
-      
+
       {showHelp && <HelpModal onClose={toggleHelp} />}
     </div>
   );
