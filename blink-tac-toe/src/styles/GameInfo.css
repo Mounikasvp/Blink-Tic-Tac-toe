@@ -1,111 +1,153 @@
 .game-info {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.score-container {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  gap: 10px;
-}
-
-.player-score {
-  flex: 1;
-  padding: 10px;
-  border-radius: 4px;
+.light-score {
+  background: #ffffff !important;
+  border: 2px solid #e0e0e0 !important;
+  border-radius: 12px !important;
   text-align: center;
-  background-color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  margin: 0;
-  opacity: 0.8;
-  border: 1px solid #e0e0e0;
+  transition: all 0.4s ease !important;
+  opacity: 0.9;
+  padding: 15px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
-.player-score.active {
+.light-score.active {
   opacity: 1;
-  border: 1px solid #4CAF50;
-  background-color: #f1f8e9;
+  border: 2px solid #4caf50 !important;
+  background: #e8f5e9 !important;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3) !important;
 }
 
-.player-score.winner {
+.light-score.winner {
   opacity: 1;
-  border: 1px solid #FF9800;
-  background-color: #fff8e1;
-  animation: pulse 1.5s infinite;
+  border: 2px solid #ff9800 !important;
+  background: #fff3e0 !important;
+  animation: winner-glow 2s infinite;
+  transform: translateY(-3px);
 }
 
 .player-label {
-  font-weight: 600;
-  margin-bottom: 5px;
+  font-weight: 700;
+  margin-bottom: 8px;
   color: #333;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .category-label {
   font-size: 0.9rem;
   color: #666;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   text-transform: capitalize;
+  font-style: italic;
 }
 
 .score {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2196F3;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2196f3;
 }
 
 .winner .score {
-  color: #FF9800;
+  color: #ff9800;
+  animation: score-glow 1s infinite alternate;
 }
 
-.current-turn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0e0e0;
+.winner-badge {
+  background: #ff9800;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 8px;
+  animation: pulse 1.5s infinite;
+}
+
+.light-turn {
+  background: #ffffff !important;
+  border: 2px solid #e3f2fd !important;
+  border-radius: 12px !important;
+  text-align: center;
+  padding: 20px !important;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .turn-label {
-  font-weight: 600;
-  margin-bottom: 5px;
+  font-weight: 700;
+  margin-bottom: 10px;
   color: #333;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .winner-label {
-  color: #FF9800;
-  font-size: 1.3rem;
-  font-weight: 600;
-  animation: bounce 1s infinite alternate;
+  color: #4caf50 !important;
+  font-size: 1.8rem;
+  font-weight: 800;
+  animation: winner-bounce 1.2s infinite alternate;
 }
 
 .current-emoji {
-  font-size: 2rem;
-  animation: bounce 1s infinite alternate;
+  font-size: 2.5rem;
+  animation: emoji-float 2s infinite alternate;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  margin-top: 5px;
 }
 
-@keyframes bounce {
+@keyframes winner-glow {
+  0% {
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.2) !important;
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4) !important;
+  }
+  100% {
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.2) !important;
+  }
+}
+
+@keyframes score-glow {
   from {
-    transform: translateY(0);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
   to {
-    transform: translateY(-10px);
+    text-shadow: 2px 2px 8px rgba(255, 213, 79, 0.8);
+  }
+}
+
+@keyframes winner-bounce {
+  from {
+    transform: translateY(0) scale(1);
+  }
+  to {
+    transform: translateY(-8px) scale(1.05);
+  }
+}
+
+@keyframes emoji-float {
+  from {
+    transform: translateY(0) rotate(-5deg);
+  }
+  to {
+    transform: translateY(-10px) rotate(5deg);
   }
 }
 
 /* Responsive design */
-@media (max-width: 400px) {
+@media (max-width: 600px) {
   .score {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 
   .current-emoji {
-    font-size: 1.8rem;
+    font-size: 2rem;
+  }
+
+  .winner-label {
+    font-size: 1.5rem;
   }
 }

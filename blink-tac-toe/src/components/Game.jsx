@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Panel, Button, Modal, Grid, Row, Col, Notification, toaster } from 'rsuite';
 import Board from './Board';
 import CategorySelector from './CategorySelector';
 import GameInfo from './GameInfo';
@@ -24,6 +25,8 @@ const Game = () => {
   const [player2Emojis, setPlayer2Emojis] = useState([]);
   const [player1Positions, setPlayer1Positions] = useState([]);
   const [player2Positions, setPlayer2Positions] = useState([]);
+  const [player1UsedEmojis, setPlayer1UsedEmojis] = useState([]);
+  const [player2UsedEmojis, setPlayer2UsedEmojis] = useState([]);
   const [winner, setWinner] = useState(null);
   const [winningLine, setWinningLine] = useState([]);
   const [showHelp, setShowHelp] = useState(false);
@@ -31,10 +34,27 @@ const Game = () => {
   const [player2Score, setPlayer2Score] = useState(0);
   const [currentEmoji, setCurrentEmoji] = useState(null);
 
-  // Get random emoji from category
-  const getRandomEmoji = (category) => {
+  // Get random emoji from category (avoiding duplicates)
+  const getRandomEmoji = (category, playerNumber) => {
     const emojis = emojiCategories[category];
-    return emojis[Math.floor(Math.random() * emojis.length)];
+    const usedEmojis = playerNumber === 1 ? player1UsedEmojis : player2UsedEmojis;
+
+    // Get available emojis (not used yet)
+    let availableEmojis = emojis.filter(emoji => !usedEmojis.includes(emoji));
+
+    // If all emojis have been used, reset and use all emojis again
+    if (availableEmojis.length === 0) {
+      availableEmojis = [...emojis];
+      // Reset the used emojis list for the next cycle
+      if (playerNumber === 1) {
+        setPlayer1UsedEmojis([]);
+      } else {
+        setPlayer2UsedEmojis([]);
+      }
+    }
+
+    // Return a random emoji from available ones
+    return availableEmojis[Math.floor(Math.random() * availableEmojis.length)];
   };
 
   // Start game with selected categories
@@ -42,7 +62,7 @@ const Game = () => {
     if (player1Category && player2Category && player1Category !== player2Category) {
       setGameStarted(true);
       resetGame();
-      setCurrentEmoji(getRandomEmoji(player1Category));
+      setCurrentEmoji(getRandomEmoji(player1Category, 1));
     }
   };
 
@@ -53,10 +73,12 @@ const Game = () => {
     setPlayer2Emojis([]);
     setPlayer1Positions([]);
     setPlayer2Positions([]);
+    setPlayer1UsedEmojis([]);
+    setPlayer2UsedEmojis([]);
     setCurrentPlayer(1);
     setWinner(null);
     setWinningLine([]);
-    setCurrentEmoji(getRandomEmoji(player1Category));
+    setCurrentEmoji(getRandomEmoji(player1Category, 1));
   };
 
   // Handle cell click
@@ -76,6 +98,9 @@ const Game = () => {
       const newEmojis = [...player1Emojis, currentEmoji];
       newPositions = [...player1Positions, index];
 
+      // Add current emoji to used emojis list
+      setPlayer1UsedEmojis(prev => [...prev, currentEmoji]);
+
       // Apply FIFO if more than 3 emojis
       if (newEmojis.length > 3) {
         const oldestPosition = newPositions.shift();
@@ -88,6 +113,9 @@ const Game = () => {
     } else {
       const newEmojis = [...player2Emojis, currentEmoji];
       newPositions = [...player2Positions, index];
+
+      // Add current emoji to used emojis list
+      setPlayer2UsedEmojis(prev => [...prev, currentEmoji]);
 
       // Apply FIFO if more than 3 emojis
       if (newEmojis.length > 3) {
@@ -108,7 +136,7 @@ const Game = () => {
       const nextPlayer = currentPlayer === 1 ? 2 : 1;
       const nextCategory = nextPlayer === 1 ? player1Category : player2Category;
       setCurrentPlayer(nextPlayer);
-      setCurrentEmoji(getRandomEmoji(nextCategory));
+      setCurrentEmoji(getRandomEmoji(nextCategory, nextPlayer));
     }
   };
 
@@ -164,40 +192,54 @@ const Game = () => {
   };
 
   return (
-    <div className="game-container">
-      <h1>Blink Tac Toe</h1>
+    <Panel className="game-container light-panel">
+      <h1 className="game-title">🎮 Blink Tac Toe</h1>
 
       {!gameStarted ? (
         <div className="category-selection">
-          <h2>Select Emoji Categories</h2>
-          <div className="categories-container">
-            <CategorySelector
-              player={1}
-              categories={Object.keys(emojiCategories)}
-              selectedCategory={player1Category}
-              onSelectCategory={setPlayer1Category}
-              emojiSamples={emojiCategories}
-              disabledCategory={player2Category}
-            />
-            <CategorySelector
-              player={2}
-              categories={Object.keys(emojiCategories)}
-              selectedCategory={player2Category}
-              onSelectCategory={setPlayer2Category}
-              emojiSamples={emojiCategories}
-              disabledCategory={player1Category}
-            />
+          <h2 className="selection-title">Select Emoji Categories</h2>
+          <Grid fluid>
+            <Row gutter={20}>
+              <Col xs={24} sm={12}>
+                <CategorySelector
+                  player={1}
+                  categories={Object.keys(emojiCategories)}
+                  selectedCategory={player1Category}
+                  onSelectCategory={setPlayer1Category}
+                  emojiSamples={emojiCategories}
+                  disabledCategory={player2Category}
+                />
+              </Col>
+              <Col xs={24} sm={12}>
+                <CategorySelector
+                  player={2}
+                  categories={Object.keys(emojiCategories)}
+                  selectedCategory={player2Category}
+                  onSelectCategory={setPlayer2Category}
+                  emojiSamples={emojiCategories}
+                  disabledCategory={player1Category}
+                />
+              </Col>
+            </Row>
+          </Grid>
+
+          <div className="start-section">
+            <Button
+              appearance="primary"
+              size="lg"
+              className="start-button light-button"
+              onClick={startGame}
+              disabled={!player1Category || !player2Category || player1Category === player2Category}
+            >
+              🚀 Start Game
+            </Button>
+
+            {player1Category && player2Category && player1Category === player2Category && (
+              <Panel className="error-panel light-error-panel">
+                ⚠️ Both players cannot select the same emoji category!
+              </Panel>
+            )}
           </div>
-          <button
-            className="start-button"
-            onClick={startGame}
-            disabled={!player1Category || !player2Category || player1Category === player2Category}
-          >
-            Start Game
-          </button>
-          {player1Category && player2Category && player1Category === player2Category && (
-            <div className="error-message">Both players cannot select the same emoji category!</div>
-          )}
         </div>
       ) : (
         <div className="game-play">
@@ -221,22 +263,31 @@ const Game = () => {
           />
 
           {winner && (
-            <div className="winner-message">
-              <h2>Player {winner} Wins! 🎉</h2>
-              <button className="play-again-button" onClick={playAgain}>
-                Play Again
-              </button>
-            </div>
+            <Panel className="winner-panel light-success-panel">
+              <h2 className="winner-title">🎉 Player {winner} Wins! 🎉</h2>
+              <Button
+                appearance="primary"
+                size="lg"
+                className="play-again-button light-button"
+                onClick={playAgain}
+              >
+                🔄 Play Again
+              </Button>
+            </Panel>
           )}
         </div>
       )}
 
-      <button className="help-button" onClick={toggleHelp}>
-        {showHelp ? 'Close Help' : 'Help'}
-      </button>
+      <Button
+        className="help-button light-help-button"
+        onClick={toggleHelp}
+        size="sm"
+      >
+        {showHelp ? '❌ Close Help' : '❓ Help'}
+      </Button>
 
       {showHelp && <HelpModal onClose={toggleHelp} />}
-    </div>
+    </Panel>
   );
 };
 

@@ -1,18 +1,20 @@
 import React from 'react';
+import { Panel, Stack } from 'rsuite';
 import '../styles/CategorySelector.css';
 
 const CategorySelector = ({ player, categories, selectedCategory, onSelectCategory, emojiSamples, disabledCategory }) => {
   return (
     <div className="category-selector">
-      <h3>Player {player}</h3>
-      <div className="category-options">
+      <h3 className="player-title light-player-title">👤 Player {player}</h3>
+      <Stack direction="column" spacing={15}>
         {categories.map((category) => {
           const isDisabled = category === disabledCategory;
           return (
-            <div
+            <Panel
               key={category}
-              className={`category-option ${selectedCategory === category ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}`}
+              className={`category-option light-category ${selectedCategory === category ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}`}
               onClick={() => !isDisabled && onSelectCategory(category)}
+              bordered
             >
               <div className="category-name">{category.charAt(0).toUpperCase() + category.slice(1)}</div>
               <div className="emoji-samples">
@@ -20,11 +22,15 @@ const CategorySelector = ({ player, categories, selectedCategory, onSelectCatego
                   <span key={index} className="emoji-sample">{emoji}</span>
                 ))}
               </div>
-              {isDisabled && <div className="disabled-overlay">Already selected by Player {player === 1 ? 2 : 1}</div>}
-            </div>
+              {isDisabled && (
+                <div className="disabled-overlay light-disabled">
+                  🚫 Selected by Player {player === 1 ? 2 : 1}
+                </div>
+              )}
+            </Panel>
           );
         })}
-      </div>
+      </Stack>
     </div>
   );
 };

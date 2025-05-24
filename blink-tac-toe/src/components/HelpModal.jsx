@@ -1,49 +1,86 @@
 import React from 'react';
+import { Modal, Panel, Button, List, Divider } from 'rsuite';
 import '../styles/HelpModal.css';
 
 const HelpModal = ({ onClose }) => {
   return (
-    <div className="help-modal-overlay">
-      <div className="help-modal">
-        <h2>How to Play Blink Tac Toe</h2>
-        
-        <div className="rule-section">
-          <h3>Game Setup</h3>
-          <ul>
-            <li>Each player selects an emoji category before the game begins.</li>
-            <li>The game is played on a 3x3 grid like regular Tic Tac Toe.</li>
-          </ul>
+    <Modal open={true} onClose={onClose} size="sm" className="help-modal-container light-modal">
+      <Modal.Header className="light-header">
+        <Modal.Title className="help-title">🎮 How to Play Blink Tac Toe</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="help-body light-body">
+        <div className="rules-list">
+          <Panel className="rule-item light-rule-item">
+            <div className="rule-header">
+              <span className="rule-icon">🎯</span>
+              <span className="rule-title">Game Setup</span>
+            </div>
+            <div className="rule-description">
+              • Each player selects a different emoji category<br/>
+              • Choose from animals, food, sports, nature, or objects<br/>
+              • Both players cannot pick the same category
+            </div>
+          </Panel>
+
+          <Panel className="rule-item light-rule-item">
+            <div className="rule-header">
+              <span className="rule-icon">🎲</span>
+              <span className="rule-title">How to Play</span>
+            </div>
+            <div className="rule-description">
+              • Player 1 goes first, then alternating turns<br/>
+              • Each turn you get a random emoji from your category<br/>
+              • Click any empty cell to place your emoji<br/>
+              • No duplicate emojis until you've used all in your category
+            </div>
+          </Panel>
+
+          <Panel className="rule-item light-rule-item">
+            <div className="rule-header">
+              <span className="rule-icon">💨</span>
+              <span className="rule-title">Vanishing Rule</span>
+            </div>
+            <div className="rule-description">
+              • Each player can only have 3 emojis on the board<br/>
+              • When you place a 4th emoji, your oldest one disappears<br/>
+              • This follows FIFO (First In, First Out) logic<br/>
+              • Strategy changes as emojis vanish!
+            </div>
+          </Panel>
+
+          <Panel className="rule-item light-rule-item">
+            <div className="rule-header">
+              <span className="rule-icon">🏆</span>
+              <span className="rule-title">How to Win</span>
+            </div>
+            <div className="rule-description">
+              • Get 3 of your emojis in a row to win<br/>
+              • Can be horizontal, vertical, or diagonal<br/>
+              • Game ends immediately when someone wins<br/>
+              • No draws possible due to vanishing rule
+            </div>
+          </Panel>
         </div>
-        
-        <div className="rule-section">
-          <h3>Gameplay</h3>
-          <ul>
-            <li>Player 1 goes first, followed by Player 2, alternating turns.</li>
-            <li>On your turn, you'll be assigned a random emoji from your category.</li>
-            <li>Click on any empty cell to place your emoji.</li>
-          </ul>
+
+        <Divider className="help-divider">💡 Quick Tips</Divider>
+
+        <div className="tips-section">
+          <Panel className="tip-item light-tip-item">
+            <span className="tip-emoji">✨</span>
+            <span className="tip-text">No duplicate emojis for each player</span>
+          </Panel>
+          <Panel className="tip-item light-tip-item">
+            <span className="tip-emoji">🔄</span>
+            <span className="tip-text">Strategy changes as emojis vanish</span>
+          </Panel>
         </div>
-        
-        <div className="rule-section">
-          <h3>Vanishing Rule</h3>
-          <ul>
-            <li>Each player can have only 3 emojis on the board at any time.</li>
-            <li>When you place a 4th emoji, your oldest emoji is automatically removed (FIFO logic).</li>
-            <li>The removed emoji's cell becomes empty and reusable.</li>
-          </ul>
-        </div>
-        
-        <div className="rule-section">
-          <h3>Winning</h3>
-          <ul>
-            <li>Win by forming a line of 3 of your emojis horizontally, vertically, or diagonally.</li>
-            <li>Draws are not possible because the board can never be fully filled.</li>
-          </ul>
-        </div>
-        
-        <button className="close-button" onClick={onClose}>Close</button>
-      </div>
-    </div>
+      </Modal.Body>
+      <Modal.Footer className="light-footer">
+        <Button onClick={onClose} appearance="primary" className="light-close-btn">
+          👍 Got it!
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
