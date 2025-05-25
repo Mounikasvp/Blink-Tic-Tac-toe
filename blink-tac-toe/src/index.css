@@ -17,10 +17,11 @@
 
 body {
   margin: 0;
+  padding: 0;
   min-width: 320px;
   min-height: 100vh;
   color: #333;
-  background-color: #f5f7fa;
+  background-color: transparent;
 }
 
 h1 {

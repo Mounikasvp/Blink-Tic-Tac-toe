@@ -7,23 +7,58 @@
   width: 90vw !important;
 }
 
+/* Hide the default RSuite modal close button */
+.light-modal .rs-modal-header .rs-btn-close {
+  display: none !important;
+}
+
 .light-modal .rs-modal-backdrop {
   background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .light-header {
-  padding: 15px 20px 10px 20px !important;
+  padding: 15px 50px 10px 20px !important;
   border-bottom: 2px solid #e3f2fd !important;
   background: #f8f9fa !important;
   border-radius: 16px 16px 0 0 !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
 }
 
 .help-title {
   color: #2196f3 !important;
-  text-align: center;
+  text-align: left;
   font-size: 1.4rem !important;
   font-weight: 700 !important;
   margin: 0 !important;
+  flex: 1 !important;
+}
+
+.custom-close-button {
+  position: static;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #666;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 15px;
+}
+
+.custom-close-button:hover {
+  background: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+  transform: scale(1.1);
 }
 
 .light-body {
@@ -201,6 +236,18 @@
     font-size: 1.2rem !important;
   }
 
+  .light-header {
+    padding: 12px 40px 8px 15px !important;
+  }
+
+  .custom-close-button {
+    width: 28px;
+    height: 28px;
+    font-size: 1.1rem;
+    padding: 5px;
+    margin-left: 12px;
+  }
+
   .compact-body {
     padding: 15px !important;
     max-height: 75vh;
@@ -239,5 +286,17 @@
 
   .help-title {
     font-size: 1.1rem !important;
+  }
+
+  .light-header {
+    padding: 10px 35px 6px 12px !important;
+  }
+
+  .custom-close-button {
+    width: 26px;
+    height: 26px;
+    font-size: 1rem;
+    padding: 4px;
+    margin-left: 10px;
   }
 }

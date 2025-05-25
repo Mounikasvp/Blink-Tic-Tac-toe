@@ -9,7 +9,9 @@ const GameInfo = ({
   player2Score,
   player1Category,
   player2Category,
-  winner
+  winner,
+  isVsComputer = false,
+  isAIThinking = false
 }) => {
   return (
     <div className="game-info">
@@ -25,7 +27,7 @@ const GameInfo = ({
           </Col>
           <Col xs={12}>
             <Panel className={`player-score light-score ${currentPlayer === 2 && !winner ? 'active' : ''} ${winner === 2 ? 'winner' : ''}`}>
-              <div className="player-label">👤 Player 2</div>
+              <div className="player-label">{isVsComputer ? '🤖 Computer' : '👤 Player 2'}</div>
               <div className="category-label">{player2Category.charAt(0).toUpperCase() + player2Category.slice(1)}</div>
               <div className="score">{player2Score}</div>
               {winner === 2 && <div className="winner-badge">🏆 Winner!</div>}
@@ -36,12 +38,22 @@ const GameInfo = ({
 
       <Panel className="current-turn light-turn">
         {winner ? (
-          <div className="turn-label winner-label">🎉 Player {winner} Wins! 🎉</div>
+          <div className="turn-label winner-label">
+            🎉 {winner === 1 ? 'You Win!' : (isVsComputer ? 'Computer Wins!' : `Player ${winner} Wins!`)} 🎉
+          </div>
         ) : (
           <FlexboxGrid justify="center" align="middle">
             <FlexboxGrid.Item>
-              <div className="turn-label">🎯 Player {currentPlayer}'s Turn</div>
-              <div className="current-emoji">{currentEmoji}</div>
+              {isAIThinking && currentPlayer === 2 ? (
+                <div className="turn-label">🤖 Computer is thinking...</div>
+              ) : (
+                <>
+                  <div className="turn-label">
+                    🎯 {currentPlayer === 1 ? 'Your Turn' : (isVsComputer ? "Computer's Turn" : `Player ${currentPlayer}'s Turn`)}
+                  </div>
+                  <div className="current-emoji">{currentEmoji}</div>
+                </>
+              )}
             </FlexboxGrid.Item>
           </FlexboxGrid>
         )}

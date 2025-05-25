@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Panel, Button, List, Divider } from 'rsuite';
+import soundEffects from '../utils/soundEffects';
 import '../styles/HelpModal.css';
 
 const HelpModal = ({ onClose }) => {
@@ -7,6 +8,15 @@ const HelpModal = ({ onClose }) => {
     <Modal open={true} onClose={onClose} size="sm" className="help-modal-container light-modal">
       <Modal.Header className="light-header">
         <Modal.Title className="help-title">🎮 How to Play Blink Tac Toe</Modal.Title>
+        <button
+          className="custom-close-button"
+          onClick={() => {
+            soundEffects.playButtonSound();
+            onClose();
+          }}
+        >
+          ✕
+        </button>
       </Modal.Header>
       <Modal.Body className="help-body light-body">
         <div className="rules-list">
@@ -76,7 +86,14 @@ const HelpModal = ({ onClose }) => {
         </div>
       </Modal.Body>
       <Modal.Footer className="light-footer">
-        <Button onClick={onClose} appearance="primary" className="light-close-btn">
+        <Button
+          onClick={() => {
+            soundEffects.playButtonSound();
+            onClose();
+          }}
+          appearance="primary"
+          className="light-close-btn"
+        >
           👍 Got it!
         </Button>
       </Modal.Footer>
