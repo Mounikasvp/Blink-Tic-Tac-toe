@@ -1,6 +1,6 @@
 /* Landing Page - Matching Game Design */
 .landing-page {
-  min-height: 100vh;
+  height: 100vh;
   width: 100vw;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
@@ -8,8 +8,11 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   margin: 0;
   padding: 0;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Header */
@@ -17,10 +20,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px 32px;
+  padding: 20px 16px;
   width: 100%;
   box-sizing: border-box;
   position: relative;
+  flex-shrink: 0;
 }
 
 .landing-title {
@@ -39,16 +43,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 32px;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 .landing-content {
   text-align: center;
-  max-width: 800px;
+  width: 100%;
+  max-width: 95vw;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
-  border-radius: 30px;
-  padding: 50px 40px;
+  border-radius: 20px;
+  padding: 30px 20px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
   margin: 0 auto;
@@ -56,6 +62,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .welcome-heading {
@@ -417,7 +424,7 @@
 /* Mobile Medium (376px to 480px) */
 @media (min-width: 376px) and (max-width: 480px) {
   .landing-header {
-    padding: 20px 18px;
+    padding: 15px 12px;
   }
 
   .landing-title {
@@ -425,24 +432,24 @@
   }
 
   .landing-content {
-    padding: 30px 22px;
-    max-width: 95vw;
-    border-radius: 20px;
+    padding: 25px 15px;
+    max-width: 98vw;
+    border-radius: 18px;
   }
 
   .welcome-heading {
     font-size: 1.6rem;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
   }
 
   .welcome-description {
     font-size: 0.95rem;
-    margin-bottom: 32px;
-    max-width: 400px;
+    margin-bottom: 25px;
+    max-width: 100%;
   }
 
   .landing-main {
-    padding: 0 16px;
+    padding: 0 8px;
   }
 
   .start-button {
@@ -469,7 +476,7 @@
 /* Mobile Small (320px to 375px) */
 @media (min-width: 320px) and (max-width: 375px) {
   .landing-header {
-    padding: 18px 16px;
+    padding: 12px 10px;
   }
 
   .landing-title {
@@ -477,24 +484,24 @@
   }
 
   .landing-content {
-    padding: 25px 18px;
-    max-width: 95vw;
-    border-radius: 18px;
+    padding: 20px 12px;
+    max-width: 98vw;
+    border-radius: 16px;
   }
 
   .welcome-heading {
     font-size: 1.4rem;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .welcome-description {
     font-size: 0.9rem;
-    margin-bottom: 28px;
-    max-width: 320px;
+    margin-bottom: 22px;
+    max-width: 100%;
   }
 
   .landing-main {
-    padding: 0 14px;
+    padding: 0 6px;
   }
 
   .start-button {
@@ -521,7 +528,7 @@
 /* Mobile Extra Small (below 320px) */
 @media (max-width: 319px) {
   .landing-header {
-    padding: 15px 12px;
+    padding: 10px 8px;
   }
 
   .landing-title {
@@ -529,24 +536,24 @@
   }
 
   .landing-content {
-    padding: 20px 15px;
+    padding: 18px 10px;
     max-width: 98vw;
-    border-radius: 15px;
+    border-radius: 14px;
   }
 
   .welcome-heading {
     font-size: 1.2rem;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   .welcome-description {
     font-size: 0.85rem;
-    margin-bottom: 25px;
-    max-width: 280px;
+    margin-bottom: 20px;
+    max-width: 100%;
   }
 
   .landing-main {
-    padding: 0 10px;
+    padding: 0 4px;
   }
 
   .start-button {
@@ -567,5 +574,57 @@
     width: 12px;
     height: 12px;
     font-size: 6px;
+  }
+}
+
+/* Add specific media query for 390px width (common mobile size) */
+@media (min-width: 390px) and (max-width: 430px) {
+  .landing-header {
+    padding: 15px 10px;
+  }
+
+  .landing-title {
+    font-size: 1.6rem;
+  }
+
+  .landing-content {
+    padding: 25px 15px;
+    max-width: 98vw;
+    border-radius: 18px;
+  }
+
+  .welcome-heading {
+    font-size: 1.7rem;
+    margin-bottom: 12px;
+  }
+
+  .welcome-description {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    max-width: 100%;
+  }
+
+  .landing-main {
+    padding: 0 8px;
+  }
+
+  .start-button {
+    width: 180px;
+    height: 44px;
+    font-size: 0.7rem;
+    padding: 0 30px;
+  }
+
+  .help-link {
+    width: 180px;
+    height: 44px;
+    font-size: 0.7rem;
+    padding: 0 30px;
+  }
+
+  .help-icon-new {
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
   }
 }

@@ -355,3 +355,64 @@
     font-size: 0.75rem !important;
   }
 }
+
+@media (max-width: 320px) {
+  .winner-modal-container .rs-modal-wrapper {
+    padding: 8px !important;
+  }
+
+  .winner-modal-container .rs-modal-content {
+    max-width: 280px !important;
+    width: 88vw !important;
+  }
+
+  .winner-modal-content {
+    padding: 18px 12px;
+    min-height: 220px;
+  }
+
+  .winner-emoji-large {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+
+  .winner-title-large {
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .winner-message {
+    font-size: 0.75rem;
+    margin-bottom: 15px;
+    max-width: 220px;
+    line-height: 1.3;
+  }
+
+  .winner-actions {
+    max-width: 200px;
+    gap: 8px;
+    flex-direction: column;
+  }
+
+  .play-again-btn-large {
+    padding: 6px 12px !important;
+    font-size: 0.75rem !important;
+    border-radius: 20px !important;
+  }
+
+  .back-to-menu-btn {
+    padding: 5px 10px !important;
+    font-size: 0.7rem !important;
+    border-radius: 20px !important;
+  }
+
+  /* Reduce confetti and fireworks for performance on small screens */
+  .confetti-container {
+    display: none;
+  }
+
+  .fireworks-container {
+    display: none;
+  }
+}
