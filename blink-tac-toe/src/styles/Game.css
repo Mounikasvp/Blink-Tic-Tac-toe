@@ -231,6 +231,128 @@
   }
 }
 
+/* Large Screen Optimizations - Decrease content size for better proportions */
+
+/* 1440px screens - Reduce content size for better visual balance */
+@media (min-width: 1200px) and (max-width: 1440px) {
+  .game-container {
+    max-width: 500px;
+    padding: 20px !important;
+  }
+
+  .game-title {
+    font-size: 2rem;
+    margin-bottom: 18px;
+  }
+
+  .selection-title {
+    font-size: 1.4rem;
+    margin-bottom: 22px;
+  }
+
+  .start-button {
+    padding: 12px 35px !important;
+    font-size: 1.1rem !important;
+  }
+
+  /* Full-screen game adjustments */
+  .game-play-fullscreen {
+    padding: 18px;
+  }
+
+  .game-main-title {
+    font-size: 2rem;
+    margin-bottom: 6px;
+  }
+
+  .board-container {
+    margin: 18px 0;
+  }
+
+  .winner-section {
+    padding: 25px;
+    margin-top: 18px;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .winner-section .winner-title {
+    font-size: 1.8rem !important;
+  }
+
+  .play-again-button {
+    padding: 12px 35px;
+    font-size: 1.1rem;
+  }
+
+  .game-help-button {
+    width: 46px;
+    height: 46px;
+    font-size: 1.1rem;
+  }
+}
+
+/* 1024px screens - Further reduce content size */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .game-container {
+    max-width: 450px;
+    padding: 18px !important;
+  }
+
+  .game-title {
+    font-size: 1.9rem;
+    margin-bottom: 16px;
+  }
+
+  .selection-title {
+    font-size: 1.35rem;
+    margin-bottom: 20px;
+  }
+
+  .start-button {
+    padding: 11px 32px !important;
+    font-size: 1.05rem !important;
+  }
+
+  /* Full-screen game adjustments */
+  .game-play-fullscreen {
+    padding: 16px;
+  }
+
+  .game-main-title {
+    font-size: 1.9rem;
+    margin-bottom: 5px;
+  }
+
+  .board-container {
+    margin: 16px 0;
+  }
+
+  .winner-section {
+    padding: 22px;
+    margin-top: 16px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .winner-section .winner-title {
+    font-size: 1.7rem !important;
+  }
+
+  .play-again-button {
+    padding: 11px 32px;
+    font-size: 1.05rem;
+  }
+
+  .game-help-button {
+    width: 45px;
+    height: 45px;
+    font-size: 1.05rem;
+  }
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .game-container {

@@ -42,7 +42,7 @@ const SoundControl = () => {
         onClick={toggleSound}
         title={isEnabled ? 'Disable Sound' : 'Enable Sound'}
       >
-        {isEnabled ? '🎵' : '🔇'}
+        <span>{isEnabled ? '🎵' : '🔇'}</span>
       </button>
     </div>
   );

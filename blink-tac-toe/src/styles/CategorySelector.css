@@ -204,6 +204,34 @@
   color: white;
 }
 
+/* Warrior Header Styles - Proper spacing from close button */
+.warrior-header {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  padding: 0 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.warrior-main-title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+}
+
+.warrior-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 0;
+  line-height: 1.4;
+  opacity: 0.95;
+}
+
 /* Dual Player Selection Styles */
 .dual-player-selection {
   display: flex;
@@ -496,6 +524,21 @@
     overflow-y: auto;
   }
 
+  .warrior-header {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    padding: 0 15px;
+  }
+
+  .warrior-main-title {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .warrior-subtitle {
+    font-size: 1.1rem;
+  }
+
   .dual-player-selection {
     flex-direction: column;
     gap: 20px;
@@ -543,5 +586,56 @@
     padding: 12px 30px;
     font-size: 1.1rem;
     margin-top: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .warrior-header {
+    margin-top: 45px;
+    margin-bottom: 20px;
+    padding: 0 12px;
+  }
+
+  .warrior-main-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .warrior-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .warrior-header {
+    margin-top: 40px;
+    margin-bottom: 18px;
+    padding: 0 10px;
+  }
+
+  .warrior-main-title {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+
+  .warrior-subtitle {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .warrior-header {
+    margin-top: 35px;
+    margin-bottom: 15px;
+    padding: 0 8px;
+  }
+
+  .warrior-main-title {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+  }
+
+  .warrior-subtitle {
+    font-size: 0.9rem;
   }
 }

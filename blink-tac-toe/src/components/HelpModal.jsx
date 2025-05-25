@@ -76,10 +76,6 @@ const HelpModal = ({ onClose }) => {
 
         <div className="tips-section">
           <Panel className="tip-item light-tip-item">
-            <span className="tip-emoji">✨</span>
-            <span className="tip-text">No duplicate emojis for each player</span>
-          </Panel>
-          <Panel className="tip-item light-tip-item">
             <span className="tip-emoji">🔄</span>
             <span className="tip-text">Strategy changes as emojis vanish</span>
           </Panel>
