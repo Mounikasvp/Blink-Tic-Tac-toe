@@ -22,6 +22,8 @@ const Game = ({ gameMode = '2players', onBackToGameMode }) => {
   const [gameStarted, setGameStarted] = useState(false);
   const [player1Category, setPlayer1Category] = useState('');
   const [player2Category, setPlayer2Category] = useState('');
+  const [player1Name, setPlayer1Name] = useState('');
+  const [player2Name, setPlayer2Name] = useState('');
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [board, setBoard] = useState(Array(9).fill(null));
   const [player1Emojis, setPlayer1Emojis] = useState([]);
@@ -390,8 +392,12 @@ const Game = ({ gameMode = '2players', onBackToGameMode }) => {
           emojiSamples={emojiCategories}
           player1Category={player1Category}
           player2Category={player2Category}
+          player1Name={player1Name}
+          player2Name={player2Name}
           onPlayer1Select={setPlayer1Category}
           onPlayer2Select={setPlayer2Category}
+          onPlayer1NameChange={setPlayer1Name}
+          onPlayer2NameChange={setPlayer2Name}
           onStartGame={startGame}
           onClose={onBackToGameMode}
           isVsComputer={isVsComputer}
@@ -413,6 +419,8 @@ const Game = ({ gameMode = '2players', onBackToGameMode }) => {
             player2Score={player2Score}
             player1Category={player1Category}
             player2Category={player2Category}
+            player1Name={player1Name}
+            player2Name={player2Name}
             winner={winner}
             isVsComputer={isVsComputer}
             isAIThinking={isAIThinking}
@@ -462,6 +470,8 @@ const Game = ({ gameMode = '2players', onBackToGameMode }) => {
         isVsComputer={isVsComputer}
         player1Category={player1Category}
         player2Category={player2Category}
+        player1Name={player1Name}
+        player2Name={player2Name}
         onPlayAgain={playAgain}
         onClose={onBackToGameMode}
       />

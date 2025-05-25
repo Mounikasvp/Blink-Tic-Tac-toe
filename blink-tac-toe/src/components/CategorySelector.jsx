@@ -13,8 +13,12 @@ const CategorySelector = ({
   isWarriorMode = false,
   player1Category = '',
   player2Category = '',
+  player1Name = '',
+  player2Name = '',
   onPlayer1Select = null,
   onPlayer2Select = null,
+  onPlayer1NameChange = null,
+  onPlayer2NameChange = null,
   onStartGame = null,
   onClose = null,
   isVsComputer = false
@@ -40,6 +44,16 @@ const CategorySelector = ({
         <div className={`dual-player-selection ${isVsComputer ? 'single-player-mode' : ''}`}>
           <div className="player-section">
             <h3 className="player-header">👤 Player 1</h3>
+            <div className="name-input-section">
+              <input
+                type="text"
+                placeholder="Enter Player 1 name..."
+                value={player1Name}
+                onChange={(e) => onPlayer1NameChange && onPlayer1NameChange(e.target.value)}
+                className="player-name-input"
+                maxLength={20}
+              />
+            </div>
             <div className="categories-grid">
               {categories.map((category) => {
                 const isSelected = player1Category === category;
@@ -78,6 +92,16 @@ const CategorySelector = ({
           {!isVsComputer && (
             <div className="player-section">
               <h3 className="player-header">👤 Player 2</h3>
+              <div className="name-input-section">
+                <input
+                  type="text"
+                  placeholder="Enter Player 2 name..."
+                  value={player2Name}
+                  onChange={(e) => onPlayer2NameChange && onPlayer2NameChange(e.target.value)}
+                  className="player-name-input"
+                  maxLength={20}
+                />
+              </div>
               <div className="categories-grid">
                 {categories.map((category) => {
                   const isSelected = player2Category === category;

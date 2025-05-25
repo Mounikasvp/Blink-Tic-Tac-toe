@@ -3,13 +3,15 @@ import { Modal, Button } from 'rsuite';
 import soundEffects from '../utils/soundEffects';
 import '../styles/WinnerModal.css';
 
-const WinnerModal = ({ 
-  winner, 
-  isVsComputer, 
-  player1Category, 
-  player2Category, 
-  onPlayAgain, 
-  onClose 
+const WinnerModal = ({
+  winner,
+  isVsComputer,
+  player1Category,
+  player2Category,
+  player1Name = '',
+  player2Name = '',
+  onPlayAgain,
+  onClose
 }) => {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showFireworks, setShowFireworks] = useState(false);
@@ -18,7 +20,7 @@ const WinnerModal = ({
     if (winner) {
       // Start confetti animation
       setShowConfetti(true);
-      
+
       // Start fireworks after a delay
       setTimeout(() => {
         setShowFireworks(true);
@@ -41,20 +43,23 @@ const WinnerModal = ({
     if (isVsComputer) {
       return winner === 1 ? '🎉 Victory! 🎉' : '🤖 Computer Wins! 🤖';
     }
-    return `🏆 Player ${winner} Wins! 🏆`;
+    const winnerName = winner === 1 ? (player1Name || 'Player 1') : (player2Name || 'Player 2');
+    return `🏆 ${winnerName} Wins! 🏆`;
   };
 
   const getWinnerMessage = () => {
     if (isVsComputer) {
       if (winner === 1) {
-        return `Congratulations! You defeated the computer using ${player1Category} emojis!`;
+        const playerName = player1Name || 'You';
+        return `Congratulations ${playerName}! You defeated the computer using ${player1Category} emojis!`;
       } else {
         return `The computer outsmarted you this time with ${player2Category} emojis. Try again!`;
       }
     }
-    
+
+    const winnerName = winner === 1 ? (player1Name || 'Player 1') : (player2Name || 'Player 2');
     const winnerCategory = winner === 1 ? player1Category : player2Category;
-    return `Amazing strategy with ${winnerCategory} emojis! Well played!`;
+    return `Amazing strategy ${winnerName}! You dominated with ${winnerCategory} emojis!`;
   };
 
   const getWinnerEmoji = () => {
@@ -79,10 +84,10 @@ const WinnerModal = ({
   };
 
   return (
-    <Modal 
-      open={!!winner} 
-      onClose={handleClose} 
-      size="sm" 
+    <Modal
+      open={!!winner}
+      onClose={handleClose}
+      size="sm"
       className="winner-modal-container"
       backdrop="static"
     >
@@ -126,11 +131,11 @@ const WinnerModal = ({
           <div className="winner-emoji-large">
             {getWinnerEmoji()}
           </div>
-          
+
           <h1 className="winner-title-large">
             {getWinnerTitle()}
           </h1>
-          
+
           <p className="winner-message">
             {getWinnerMessage()}
           </p>
@@ -143,7 +148,7 @@ const WinnerModal = ({
             >
               🔄 Play Again
             </Button>
-            
+
             <Button
               className="back-to-menu-btn"
               onClick={handleClose}
